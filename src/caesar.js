@@ -27,13 +27,13 @@ const caesarModule = (function () {
         } else {
           index = (index - shift) % 26;
           if (index < 0) {
-            index += 26; // Handle wrapping around to the front of the alphabet
+            index += 26; 
           }
         }
 
         result += alphabet[index];
       } else {
-        // Non-alphabetic characters are maintained
+        
         result += char;
       }
     }

@@ -9,7 +9,7 @@ describe("caesar", () => {
        const shift = 0
        const encode = true
 
-       let result = caesar(input, shift, code)
+       let result = caesar(input, shift, encode)
 
        expect(result).to.be.false
     })
@@ -28,23 +28,43 @@ describe("caesar", () => {
 
    // encoding a message //
    it("should encode a message by shifting the letters", () => {
-
+       const input = "pink"
+       const shift = 2
+       const expected = "rkpm"
+       const actual = caesar(input, shift)
+       expect(actual).to.eql(expected)
    })
 
    it("should leaves spaces and other symbols as is", () => {
-
+       const input = "hey, y'all"
+       const shift = 2
+       const expected = "jga, a'cnn"
+       const actual = caesar(input, shift)
+       expect(actual).to.eql(expected)
    })
 
    it("should ignore capital letters", () => {
-
+       const input = "Blue"
+       const shift = 2
+       const expected = "Dnwg"
+       const actual = caesar(input, shift)
+       expect(actual).to.eql(expected)
    })
 
    it("should appropriately handle letters at the end of the alphabet", () => {
-
+    const input = "yz"
+    const shift = 2
+    const expected = "ab"
+    const actual = caesar(input, shift)
+    expect(actual).to.eql(expected)
    })
 
    it("should allow for a negative shift that will shift to the left", () => {
-
+    const input = "zapp gum"
+       const shift = -3
+       const expected = "wxmm drj"
+       const actual = caesar(input, shift)
+       expect(actual).to.eql(expected)
    })
 
    // decoding a message
