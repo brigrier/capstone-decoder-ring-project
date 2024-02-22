@@ -7,9 +7,9 @@ const caesarModule = (function () {
   // you can add any code you want within this function scope
 
   function caesar(input, shift, encode = true) {
-    if (input.length === 0) return false;
+    if (!input) return false;
 
-    if (!shift || shift === 0 || shift < -25 || shift > 25) return false;
+    if (shift === 0 || shift < -25 || shift > 25) return false;
 
     input = input.toLowerCase();
 
@@ -23,17 +23,13 @@ const caesarModule = (function () {
         let index = alphabet.indexOf(char);
 
         if (encode) {
-          index = (index + shift) % 26;
+          index = (index + shift + 26) % 26;
         } else {
-          index = (index - shift) % 26;
-          if (index < 0) {
-            index += 26; 
-          }
+          index = (index - shift + 26) % 26;
         }
 
         result += alphabet[index];
       } else {
-        
         result += char;
       }
     }
