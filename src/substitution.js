@@ -7,7 +7,35 @@ const substitutionModule = (function () {
   // you can add any code you want within this function scope
 
   function substitution(input, alphabet, encode = true) {
-    // your solution code here
+    if (!alphabet || alphabet.length !== 26) return false;
+
+    const uniqueAlphabet = new Set(alphabet.toLowerCase());
+    if (uniqueAlphabet.size !== 26) return false;
+
+    const originalAlphabet = "abcdefghijklmnopqrstuvwxyz";
+
+    const encodingMap = {};
+    const decodingMap = {};
+    for (let i = 0; i < originalAlphabet.length; i++) {
+      encodingMap[originalAlphabet[i]] = alphabet[i];
+      decodingMap[alphabet[i]] = originalAlphabet[i];
+    }
+
+    let result = "";
+    for (let i = 0; i < input.length; i++) {
+      const char = input[i].toLowerCase();
+      if (char === " ") {
+        result += " ";
+      } else if (encode && char in encodingMap) {
+        result += encodingMap[char];
+      } else if (!encode && char in decodingMap) {
+        result += decodingMap[char];
+      } else {
+        result += input[i];
+      }
+    }
+
+    return result;
   }
 
   return {

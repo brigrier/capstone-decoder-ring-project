@@ -21,7 +21,7 @@ const polybiusModule = (function () {
 
     let result = '';
 
-    // Encoding
+    
     if (encode) {
       for (let char of input) {
         if (polybiusSquare[char.toLowerCase()]) {
