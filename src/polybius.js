@@ -13,15 +13,39 @@ const polybiusModule = (function () {
     ' ': ' '
   };
 
+   const reverseLookup = {
+      "11": "a",
+      "21": "b",
+      "31": "c",
+      "41": "d",
+      "51": "e",
+      "12": "f",
+      "22": "g",
+      "32": "h",
+      "42": "(i/j)",
+      "52": "k",
+      "13": "l",
+      "23": "m",
+      "33": "n",
+      "43": "o",
+      "53": "p",
+      "14": "q",
+      "24": "r",
+      "34": "s",
+      "44": "t",
+      "54": "u",
+      "15": "v",
+      "25": "w",
+      "35": "x",
+      "45": "y",
+      "55": "z",
+      " ": " "
+    }
+   
   function polybius(input, encode = true) {
     const isOddLength = (input.match(/\d/g) || []).length % 2 !== 0;
-
-    
     if (!encode && isOddLength) return false;
-
     let result = '';
-
-    
     if (encode) {
       for (let char of input) {
         if (polybiusSquare[char.toLowerCase()]) {
@@ -31,24 +55,24 @@ const polybiusModule = (function () {
         }
       }
     } else { 
-      let i = 0;
-      while (i < input.length) {
-        if (input[i] === ' ') {
-          result += input[i];
-          i++;
-        } else {
-          const pair = input.slice(i, i + 2);
-          if (Object.values(polybiusSquare).includes(pair)) {
-            result += Object.keys(polybiusSquare).find(key => polybiusSquare[key] === pair);
-            i += 2;
-          } else {
-            return false; 
-          }
-        }
+      const noSpaceInput = input.toString().replace(" ","")
+      if(noSpaceInput.length % 2 === 1) { 
+        return false
       }
+      for (let i = 0; i < input.length; i += 2) {
+        if (input[i] === " ") {
+            result += input[i]
+            i -= 1
+        }
+        else {
+          const firstValue = input[i]
+          const secondValue = input[i+1]
+          const lookupKey = `${firstValue}${secondValue}`  
+          result += reverseLookup[lookupKey]
+        }
+      }      
     }
-
-    return result;
+    return result
   }
 
   return {
